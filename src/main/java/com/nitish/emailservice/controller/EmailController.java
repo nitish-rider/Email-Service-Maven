@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 
 @RestController
 public class EmailController {
@@ -31,23 +32,21 @@ public class EmailController {
         javaMailSender.send(message);
         logger.debug("Email send to {} ", "nitish102000@gmail.com");
         return "Email Sent Successfully";
-//        boolean result = EmailRepo.sendMail();
-//        if(result){
-//            return "Email Sent Successfully";
-//        }
-//        else{
-//            return "Email Not Sent";
-//        }
     }
 
-//    @RequestMapping(value = "/sendEmailAtt")
-//    public String sendEmailAtt(){
-//        boolean result = EmailRepo.sendMailWithAttachment();
-//        if(result){
-//            return "Email Sent Successfully";
-//        }
-//        else{
-//            return "Email Not Sent";
-//        }
-//    }
+    @RequestMapping(value = "/sendEmailAtt")
+    public String sendEmailAtt() throws MessagingException {
+        String path = "C:\\Users\\nitis\\Desktop\\MOM_3196.jpg";
+        File file = new File(path);
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setTo("nitish102000@gmail.com");
+        helper.setSubject("Testing on 11-05-2022");
+        helper.setText("Kya Aj Hoga!!!!!!");
+        helper.addAttachment("MyPic",file);
+
+        javaMailSender.send(message);
+        logger.debug("Email send to {} ", "nitish102000@gmail.com");
+        return "Email Sent Successfully";
+    }
 }
