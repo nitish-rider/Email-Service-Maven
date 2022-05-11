@@ -14,4 +14,15 @@ Rest Service URL for Text(Preset): http://localhost:8081/sendEmail
 
 Rest Service URL for Text and Attachment(Preset): http://localhost:8081/sendEmailAtt
 
+Rest Service URL for Text (Post Request): http://localhost:8081/send
+
+Request Body:
+```json
+{
+  "recipientEmailId": "Receiver's email ID",
+  "emailSubject": "Subject",
+  "emailMessage": "Body of Email"
+}
+```
+
 ####Note:Replace the username with your Gmail id and password in application.properties file
