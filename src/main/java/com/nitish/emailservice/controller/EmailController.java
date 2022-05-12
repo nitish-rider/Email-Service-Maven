@@ -101,7 +101,7 @@ public class EmailController {
             File obj = new File("Logs.txt");
             if (!obj.exists())
                 obj.createNewFile();
-            logFun("Email(Text Body) send to nitish102000@gmail.com",obj);
+            logFun("Email(Text Body) send to " + textEmail.getRecipientEmailId(),obj);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -127,7 +127,7 @@ public class EmailController {
             File obj = new File("Logs.txt");
             if (!obj.exists())
                 obj.createNewFile();
-            logFun("Email(Image Body) send to nitish102000@gmail.com",obj);
+            logFun("Email(Image Body) send to " + textEmail.getRecipientEmailId(),obj);
 
         } catch (IOException e) {
             e.printStackTrace();
