@@ -25,4 +25,16 @@ Request Body:
 }
 ```
 
-####Note:Replace the username with your Gmail id and password in application.properties file
+Rest Service URL for File (Post Request): http://localhost:8081/sendFile
+
+Request Body:
+```json
+{
+  "recipientEmailId": "Receiver's email ID",
+  "emailSubject": "Subject",
+  "emailMessage": "Body of Email",
+  "file": "File"
+}
+```
+
+####Note:Replace the username with your Gmail id and password in application.properties file, and if you want to use encryped forms the follow the process in [Encryption](https://www.codejava.net/frameworks/spring-boot/spring-boot-password-encryption) 
