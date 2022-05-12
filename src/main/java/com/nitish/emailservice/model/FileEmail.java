@@ -1,14 +1,12 @@
 package com.nitish.emailservice.model;
 
-public class TextEmail {
+import org.springframework.web.multipart.MultipartFile;
 
+public class FileEmail {
     private String recipientEmailId;
     private String emailSubject;
     private String emailMessage;
-
-    public TextEmail() {
-        super();
-    }
+    private MultipartFile file;
 
     public String getRecipientEmailId() {
         return recipientEmailId;
@@ -32,5 +30,13 @@ public class TextEmail {
 
     public void setEmailMessage(String emailMessage) {
         this.emailMessage = emailMessage;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 }
