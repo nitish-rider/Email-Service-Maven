@@ -16,7 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.io.File;
+import java.io.*;
+import java.util.Date;
 import java.util.Objects;
 
 @RestController
@@ -27,7 +28,15 @@ public class EmailController {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    @RequestMapping(value = "/sendEmail")
+    private static void logFun(String text , File file) throws IOException {
+        FileWriter fw = new FileWriter(file.getAbsoluteFile(),true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        text = text + " at " + new Date().toString() + "\n";
+        bw.write(text);
+        bw.close();
+    }
+
+    @RequestMapping(value = "/sendEmail", method = RequestMethod.GET)
     public String sendEmail() throws MessagingException {
 
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -37,13 +46,23 @@ public class EmailController {
         helper.setText("Kya Aj Hoga!!!!!!");
 
         javaMailSender.send(message);
+
+        try{
+            File obj = new File("PreBuildLogs.txt");
+            if (!obj.exists())
+                obj.createNewFile();
+            logFun("Email(Text Preset) send to nitish102000@gmail.com",obj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         logger.debug("Email send to {} ", "nitish102000@gmail.com");
         return "Email Sent Successfully";
     }
 
-    @RequestMapping(value = "/sendEmailAtt")
+    @RequestMapping(value = "/sendEmailAtt", method = RequestMethod.GET)
     public String sendEmailAtt() throws MessagingException {
-        String path = "C:\\Users\\nitis\\Desktop\\MOM_3196.jpg";
+        String path = "testImg.jpg";
         File file = new File(path);
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -53,6 +72,16 @@ public class EmailController {
         helper.addAttachment("MyPic",file);
 
         javaMailSender.send(message);
+        try{
+            File obj = new File("PreBuildLogs.txt");
+            if (!obj.exists())
+                obj.createNewFile();
+            logFun("Email(Image Preset) send to nitish102000@gmail.com",obj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         logger.debug("Email send to {} ", "nitish102000@gmail.com");
         return "Email Sent Successfully";
     }
@@ -68,6 +97,15 @@ public class EmailController {
         helper.setText(textEmail.getEmailMessage(), true); // true indicates html
 
         javaMailSender.send(message);
+        try{
+            File obj = new File("Logs.txt");
+            if (!obj.exists())
+                obj.createNewFile();
+            logFun("Email(Text Body) send to nitish102000@gmail.com",obj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         logger.debug("Email send to {} ", textEmail.getRecipientEmailId());
         return "Email Send Successfully";
 
@@ -85,6 +123,15 @@ public class EmailController {
         helper.addAttachment(Objects.requireNonNull(fileEmail.getFile().getOriginalFilename()),fileEmail.getFile());
 
         javaMailSender.send(message);
+        try{
+            File obj = new File("Logs.txt");
+            if (!obj.exists())
+                obj.createNewFile();
+            logFun("Email(Image Body) send to nitish102000@gmail.com",obj);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         logger.debug("Email send to {} ",fileEmail.getRecipientEmailId() );
         return "Email Send Successfully";
 

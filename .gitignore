@@ -4,6 +4,8 @@ target/
 test/
 !**/src/main/**/target/
 !**/src/test/**/target/
+Logs.txt
+PreBuildLogs.txt
 
 ### STS ###
 .apt_generated
